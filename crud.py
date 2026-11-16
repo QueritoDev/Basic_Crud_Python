@@ -9,7 +9,14 @@ def Input():
     return input("Digite um nome: ")
 
 def Listar():
-    print(e)
+    #tô colocando um tratamento de erros aqui
+    try:
+        arq = open("dados.txt", "r")
+        for linha in arq:
+            print(linha)
+        arq.close()
+    except:
+        print("Arquivo não encontrado")
 
 while True:
     print("-------MENU--------")
