@@ -60,6 +60,9 @@ def Remover():
     except ValueError:
         print("Entrada inválida. Por favor, digite um número inteiro.")
     
+
+
+"""
 while True:
     print("-------MENU--------")
     print("[1] Cadastrar")
@@ -79,5 +82,4 @@ while True:
         Remover()
     else:
         print("Opcao Invalida")
-
-    
+"""
