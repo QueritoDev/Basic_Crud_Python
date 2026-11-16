@@ -3,7 +3,7 @@
 def cadastrar(elemento):
     arq = open("dados.txt", "a")
     arq.write("%s\n" %elemento)
-    arq.close
+    arq.close()
 
 def Input():
     return input("Digite um nome: ")
@@ -23,5 +23,9 @@ while True:
     elif op == 1:
         elemento = Input()
         cadastrar(elemento)
+    elif op == 2:
+        Listar()
+    else:
+        print("Opcao Invalida")
 
     
