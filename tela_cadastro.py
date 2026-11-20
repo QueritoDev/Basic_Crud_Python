@@ -1,23 +1,5 @@
-import json
 from raylibpy import *
-ARQUIVO = "dados.json"
-
-def _carregar():
-    try:
-        with open(ARQUIVO, "r", encoding="utf-8") as arq:
-            return json.load(arq)
-    except (FileNotFoundError, json.JSONDecodeError):
-        return []
-
-def _salvar(livros):
-    with open (ARQUIVO, "w", encoding="utf-8") as arq:
-        json.dump(livros, arq, ensure_ascii=False, indent=4)
-
-def cadastrar(livro):
-    livros = _carregar()
-    livros.append(livro)
-    _salvar(livros)
-
+import banco
 
 ## PARA O RAYLIB
 def criar_estado():
@@ -31,7 +13,7 @@ def criar_estado():
             "ano": ""
         },
         "save_Rec": Rectangle(600, 380, 120, 40),
-        "cadastrar_Rec": Rectangle(300, 380, 120, 40),
+        "voltar_Rec": Rectangle(200, 380, 120, 40),
         "rects": {
             "titulo": Rectangle(200, 100, 400, 40),
             "autor": Rectangle(200, 170, 400, 40),
@@ -40,13 +22,16 @@ def criar_estado():
         }
     }
 
-def update_cadastro_raylib(state):
+def update_cadastro(state):
     # UPDATE
 
     mouse_pos = get_mouse_position()
-
+    voltar = False
     # Verifica se clicou em algum campo de texto
     if is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+        if check_collision_point_rec(mouse_pos, state["voltar_Rec"]):
+            return True # Avisa o main para trocar de tela
+
         state["campo_ativo"] = None # reseta por padrão
         for nome, rect in state["rects"].items():
             if check_collision_point_rec(mouse_pos, rect):
@@ -59,7 +44,7 @@ def update_cadastro_raylib(state):
             ano_str = state["campos"]["ano"].strip()
             ano_num = int(ano_str) if ano_str.isdigit() else 0
 
-            cadastrar({
+            banco.cadastrar({
                 "titulo": state["campos"]["titulo"].strip(),
                 "autor": state["campos"]["autor"].strip(),
                 "editora": state["campos"]["editora"].strip(),
@@ -72,7 +57,6 @@ def update_cadastro_raylib(state):
         state["campo_ativo"] = None
 
     if state["campo_ativo"] is not None:
-        print(state["campo_ativo"])
         campo = state["campo_ativo"]
         char = get_char_pressed()
 
@@ -92,7 +76,8 @@ def update_cadastro_raylib(state):
         if is_key_pressed(KEY_ESCAPE):
             state["campo_ativo"] = None
 
-def draw_cadastro_raylib(state):
+
+def draw_cadastro(state):
     # Desenha os campos
     for nome, rect in state["rects"].items():
         # Desenha o texto de ajuda (Título:, Autor:, etc)
@@ -111,22 +96,15 @@ def draw_cadastro_raylib(state):
             cursor_x = int(rect.x) + 10 + measure_text(state["campos"][nome], 20)
             draw_text("|", cursor_x, int(rect.y) + 10, 20, BLACK)
 
-    # Desenha o botão Cadastrar
+    # Desenha o botão Salvar
     draw_rectangle_rec(state["save_Rec"], GREEN)
     draw_text("Salvar", int(state["save_Rec"].x) + 10, int(state["save_Rec"].y) + 10, 20, WHITE)
 
-def update_crud(state):
-    mouse_pos = get_mouse_position()
+    # Desenha o botão Voltar
+    draw_rectangle_rec(state["voltar_Rec"], RED)
+    draw_text("Voltar", int(state["voltar_Rec"].x) + 10, int(state["voltar_Rec"].y) + 10, 20, WHITE)
 
-    if(is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and check_collision_point_rec(mouse_pos, state["cadastrar_Rec"])):
-        state["clicouCadastrar"] = True
 
-def draw_crud(state):
-    if(state["clicouCadastrar"]==True):
-        draw_cadastro_raylib(state)
-        return
 
-    draw_rectangle_rec(state["cadastrar_Rec"], GREEN)
-    draw_text("Cadastrar", int(state["cadastrar_Rec"].x) + 10, int(state["cadastrar_Rec"].y) + 10, 20, WHITE)
 
 
