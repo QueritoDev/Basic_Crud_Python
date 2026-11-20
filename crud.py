@@ -1,30 +1,7 @@
 ## Crud Basic - QueritoDEV
 import json
 
-ARQUIVOS = "dados.json"
-
-def _retornaJson():
-    try:
-        with open(ARQUIVO, "r", encoding="utf-8") as arq:
-            return json.load(arq)
-        except FileNotFoundError:
-            return []
-        except json.JSONDecodeError:
-            return []
-
-def _salvar(livros):
-    with open (ARQUIVO, "w", encoding="utf-8") as arq:
-        json.dump(livros, arq, ensure_ascii=False, indent=4)
-
-def cadastrar(elemento):
-    livros = _retornaJson()
-    livros.append(livro)
-
-
-def Input():
-    return input("Digite um nome: ")
-
-def Listar():
+def listar():
     #tô colocando um tratamento de erros aqui
     try:
         arq = open("dados.txt", "r")
@@ -34,7 +11,7 @@ def Listar():
     except:
         print("Arquivo não encontrado")
 
-def Remover():
+def remover():
     try:
         arq = open("dados.txt", "r")
         linhas = arq.readlines()
