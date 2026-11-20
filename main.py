@@ -3,9 +3,7 @@ import crud
 import cadastro
 
 def main():
-
     # INIT
-
     init_window(800, 450, "raylib [core] example - basic window")
     set_target_fps(60)
 
@@ -13,12 +11,14 @@ def main():
     
     while not window_should_close():
 
-        cadastro.update_cadastro_raylib(state)
+        cadastro.update_crud(state)
+        if state["clicouCadastrar"]:
+            cadastro.update_cadastro_raylib(state)
 
         # DRAW
         begin_drawing()
         clear_background(GRAY)
-        cadastro.draw_cadastro_raylib(state)
+        cadastro.draw_crud(state)
 
         end_drawing()
 
