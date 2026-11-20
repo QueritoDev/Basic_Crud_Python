@@ -1,9 +1,25 @@
 ## Crud Basic - QueritoDEV
+import json
+
+ARQUIVOS = "dados.json"
+
+def _retornaJson():
+    try:
+        with open(ARQUIVO, "r", encoding="utf-8") as arq:
+            return json.load(arq)
+        except FileNotFoundError:
+            return []
+        except json.JSONDecodeError:
+            return []
+
+def _salvar(livros):
+    with open (ARQUIVO, "w", encoding="utf-8") as arq:
+        json.dump(livros, arq, ensure_ascii=False, indent=4)
 
 def cadastrar(elemento):
-    arq = open("dados.txt", "a")
-    arq.write("%s\n" %elemento)
-    arq.close()
+    livros = _retornaJson()
+    livros.append(livro)
+
 
 def Input():
     return input("Digite um nome: ")
