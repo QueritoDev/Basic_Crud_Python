@@ -1,6 +1,14 @@
-{
-    "titulo": "...",
-    "autor": "...",
-    "editora": "...",
-    "ano": 0
-}
+[
+    {
+        "titulo": "...",
+        "autor": "...",
+        "editora": "...",
+        "ano": 0
+    },
+    {
+        "titulo": "George Orwell",
+        "autor": "",
+        "editora": "",
+        "ano": 0
+    }
+]
