@@ -28,3 +28,19 @@ def deletar(indice):
         _salvar(livros)
         return removido
     return None
+
+def update(indice:int, info:dict):
+    # abre o arquivo e guarda os dados em uma variável
+    with open(ARQUIVO, "r", encoding="utf-8") as arqv:
+        dados = json.load(arqv)
+
+    # Troca os dados de acordo com o dicionario passado como parametro
+    for chave, valor in info.items():
+        dados[indice][chave] = info.get(chave, valor)
+
+        if chave == "ano":
+            dados[indice][chave] = int(info.get(chave, valor))
+
+    # Salva os dados atualizados no arquivo
+    with open(ARQUIVO, "w", encoding="utf-8") as arqv:
+        json.dump(dados, arqv, ensure_ascii=False, indent=4)

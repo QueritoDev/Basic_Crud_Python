@@ -1,5 +1,11 @@
 [
     {
+        "titulo": "Novo Título",
+        "autor": "Novo Autor",
+        "editora": "Nova Editora",
+        "ano": 2024
+    },
+    {
         "titulo": "1984",
         "autor": "George Orwell",
         "editora": "Brasil",
